@@ -1,17 +1,21 @@
-import React, { useState } from 'react'
 import styled from 'styled-components'
 
-const Bet = () => {
+const Bet = ({error, setError, selectedNum, setSelectedNum }) => {
 
     const arrNum = [ 1, 2, 3, 4, 5, 6 ];
 
-    const [selectedNum, setSelectedNum] = useState();
+    const numSelectorHandler = (value) => {
+        setSelectedNum(value)
+        setError("")
+    }
+    
   return (
     <NumContainer>
+        <p className='error'>{error}</p>
         <div className="flex">
         {
             arrNum.map((value, i) => (
-                <Box isSelected={value == selectedNum} key={i} onClick={() => setSelectedNum(value)}>
+                <Box isSelected={value == selectedNum} key={i} onClick={() => numSelectorHandler(value)}>
                     {value}
                 </Box>
             ))
@@ -54,5 +58,9 @@ gap: 10px;
     p{
         font-size: 24px;
         font-weight: 600;
+    }
+
+    .error {
+        color: red;
     }
 `
